@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { removeDebugNodeFromIndex } from '@angular/core/src/debug/debug_node';
 
 @Component({
   selector: 'app-server',
@@ -6,10 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./server.component.scss']
 })
 export class ServerComponent {
-  serverId: number = 10;
-  serverStatus: string = 'offline';
+  serverId = 10;
+  serverStatus = 'offline';
 
+  constructor() {
+    this.serverStatus = Math.random() > 0.5 ? 'online' : 'offline';
+  }
   getServerStatus() {
     return this.serverStatus;
+  }
+
+  getColor() {
+    return this.serverStatus === 'online' ? 'green' : 'red';
   }
 }
