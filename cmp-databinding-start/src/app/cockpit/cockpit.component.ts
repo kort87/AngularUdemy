@@ -13,6 +13,7 @@ export class CockpitComponent implements OnInit {
   // newServerName = '';
   // newServerContent = '';
 
+  @ViewChild('serverNameInput', {static: true}) serverNameInput: ElementRef;
   @ViewChild('serverContentInput', {static: true}) serverContentInput: ElementRef;
 
   constructor() { }
@@ -30,5 +31,11 @@ export class CockpitComponent implements OnInit {
     this.blueprintCreated.emit({
       serverName: nameInput,
       serverContent: this.serverContentInput.nativeElement.value});
+  }
+
+  disableButtons(srvName: string, srvContent: string): boolean {
+    const result = srvName === '' && srvContent === '';
+    console.log(result);
+    return result;
   }
 }
