@@ -8,7 +8,8 @@ import { Server } from '../shared/server.model';
 })
 export class CockpitComponent implements OnInit {
   @Output() serverCreated = new EventEmitter<Server>();
-  @Output() blueprintCreated = new EventEmitter<Server>();
+  // tslint:disable-next-line:no-output-rename
+  @Output('bpCreated') blueprintCreated = new EventEmitter<Server>();
   newServerName = '';
   newServerContent = '';
 
