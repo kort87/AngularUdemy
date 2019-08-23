@@ -20,6 +20,13 @@
             {{ even }}
           </li>
         </div>
+        <!-- IMPORTANT : la propriété de la directive structurelle doit
+        avoir le même nom que le selector de la classe directive. -->
+        <div *appUnless='onlyOdd'>
+            <li class="list-group-item" [ngClass]='{odd: even % 2 !== 0}' *ngFor='let even of evenNumbers'>
+              {{ even }}
+            </li>
+          </div>
       </ul>
       <p appBasicHighlight>Styled with a directive!</p>
       <p appBetterHighlight [defaultColor]='"green"' [highlightColor]='"red"' >Styled with a directive!</p>
