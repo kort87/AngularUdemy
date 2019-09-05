@@ -42,7 +42,7 @@ export class ShoppingListService {
   }
 
   deleteIngredient(index: number) {
-    this.ingredients.splice(1);
+    this.ingredients.splice(1, 1);
     this.ingredientsChanged.next(this.ingredients.slice());
   }
 }

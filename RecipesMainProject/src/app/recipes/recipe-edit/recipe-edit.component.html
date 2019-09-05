@@ -74,13 +74,22 @@
                 />
             </div>
             <div class="col-xs-2">
-              <button class="btn btn-danger">X</button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="onDeleteIngredient(i)"
+                >X</button>
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12">
               <button type="button" class="btn btn-success addIngrBtn" (click)="onAddIngredient()">Add Ingredient</button>
             </div>
+            <!-- Angular 8 only (==> FormArray.clear())
+
+            <div class="col-xs-12">
+                <button type="button" class="btn btn-danger" (click)="onRemoveAllIngredients()">remove all Ingredients</button>
+            </div> -->
           </div>
         </div>
       </div>
