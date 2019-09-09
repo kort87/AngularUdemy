@@ -37,4 +37,11 @@ export class PostsService {
       return postsArray;
     }));
   }
+
+  clearPosts() {
+    return this.http
+    .delete<{name: string}>(
+      'https://rbeangularudemy.firebaseio.com/posts.json'
+    );
+  }
 }
