@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Post } from './post.model';
 import { map, catchError } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs';
@@ -28,11 +28,15 @@ export class PostsService {
   }
 
   fetchPosts() {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('print', 'pretty');
+    searchParams = searchParams.append('custom', 'customData');
     return this.http
     .get<{[key: string]: Post}>(
       'https://rbeangularudemy.firebaseio.com/posts.json',
       {
-        headers: new HttpHeaders({'Custom-header': 'hello'})
+        headers: new HttpHeaders({'Custom-header': 'hello'}),
+        params: searchParams
       }
       )
     .pipe(
