@@ -39,7 +39,8 @@ export class PostsService {
       'https://rbeangularudemy.firebaseio.com/posts.json',
       {
         headers: new HttpHeaders({'Custom-header': 'hello'}),
-        params: searchParams
+        params: searchParams,
+        responseType: 'json'
       }
       )
     .pipe(
@@ -63,7 +64,8 @@ export class PostsService {
     .delete<{name: string}>(
       'https://rbeangularudemy.firebaseio.com/posts.json',
       {
-        observe: 'events'
+        observe: 'events',
+        responseType: 'json'
       }
     ).pipe(tap(event => {
       console.log(event);
