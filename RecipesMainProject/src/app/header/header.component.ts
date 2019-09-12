@@ -16,4 +16,7 @@ export class HeaderComponent {
     this.dsService.storeRecipes();
   }
 
+  onFetchData() {
+    this.dsService.fetchRecipes();
+  }
 }

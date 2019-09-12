@@ -20,4 +20,12 @@ export class DataStorageService {
       console.log(response);
     });
   }
+
+  fetchRecipes() {
+    this.http.get<Recipe[]>('https://angularudemyrbemainbackend.firebaseio.com/recipes.json')
+      .subscribe(recipes => {
+        console.log(recipes);
+        this.recipeService.setRecipes(recipes);
+      });
+  }
 }
