@@ -4,6 +4,7 @@ import { AuthResponseData } from './authresponsedata.model';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { User } from './user.model';
 export class AuthService {
   userSubject = new BehaviorSubject<User>(null);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   signup(email: string, password: string) {
     return this.http.post<AuthResponseData>(
@@ -21,9 +22,7 @@ export class AuthService {
         password: password,
         returnSecureToken: true
       }).pipe(
-        catchError(this.handleError), tap(resData => {
-          this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
-        }));
+        catchError(this.handleError));
   }
 
   login(email: string, password: string) {
@@ -33,8 +32,16 @@ export class AuthService {
       password: password,
       returnSecureToken: true
     }).pipe(
-      catchError(this.handleError));
+      catchError(this.handleError), tap(resData => {
+        this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
+      }));
   }
+
+  logout() {
+    this.userSubject.next(null);
+    this.router.navigate(['/auth']);
+  }
+
   private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
     const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
     const user = new User(email, userId, token, expirationDate);

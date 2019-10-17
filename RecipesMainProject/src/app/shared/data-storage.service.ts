@@ -24,18 +24,20 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    return this.authService.userSubject.pipe(take(1), exhaustMap(user => {
-      return this.http.get<Recipe[]>('https://angularudemyrbemainbackend.firebaseio.com/recipes.json',
-      { params: new HttpParams().set('auth', user.token)});
-    }),
-    map(recipes => {
-      return recipes.map(recipe => {
-        // Initialise les ingéredients à un tableau vide pour les recettes récupérées n'en ayant pas.
-        return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []};
-      });
-    }),
-    tap(recipes => {
-      this.recipeService.setRecipes(recipes as Recipe[]);
-    }));
-  }
+    return this.http
+      .get<Recipe[]>('https://angularudemyrbemainbackend.firebaseio.com/recipes.json')
+      .pipe(
+        map(recipes => {
+          return recipes.map(recipe => {
+            // Initialise les ingéredients à un tableau vide pour les recettes récupérées n'en ayant pas.
+            return {
+              ...recipe,
+              ingredients: recipe.ingredients ? recipe.ingredients : []
+            };
+          });
+        }),
+        tap(recipes => {
+            this.recipeService.setRecipes(recipes as Recipe[]);
+          }));
+    }
 }
