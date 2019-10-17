@@ -5,4 +5,5 @@ export interface AuthResponseData {
   refreshToken;
   expiresIn: string;
   localId: string;
+  registered?: boolean;
 }
